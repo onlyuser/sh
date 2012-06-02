@@ -4,7 +4,7 @@ Copyright (C) 2011-2012 Jerry Chen <mailto:onlyuser@gmail.com>
 
 About:
 
-    sh is a collection of bash scripts used to maintain XLang.
+    sh is a collection of shell scripts used to maintain XLang.
     Currently, it includes the following:
 
         xgrep   -- a grep wrapper that screens filenames before grepping content
