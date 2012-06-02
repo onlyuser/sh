@@ -1,0 +1,57 @@
+#!/bin/bash
+
+show_help()
+{
+    echo "SYNTAX: `basename $0` <FILENAME> <SEARCH_STR> <REPLACE_STR> [IGNORE_COLLISION={1/0}]"
+}
+
+if [ $# -ne 3 -a $# -ne 4 ]; then
+    echo "fail! -- expect 3 or 4 arguments! ==> $@"
+    show_help
+    exit 1
+fi
+
+FILENAME=`echo $1 | sed "s#!-# #g"`
+SEARCH_STR=`echo $2 | sed "s#!-# #g"`
+REPLACE_STR=`echo $3 | sed "s#!-# #g"`
+IGNORE_COLLISION=$4
+
+if [ ! -f $FILENAME ]; then
+    echo "fail! -- file not found! ==> $FILENAME"
+    exit 1
+fi
+
+if [ "$SEARCH_STR" == "$REPLACE_STR" ]; then
+    echo "fail! -- no change in order"
+    exit 1
+fi
+
+if [ -n "`grep \"$SEARCH_STR\" $FILENAME`" ]; then
+    if [ ! -n "`grep \"$REPLACE_STR\" $FILENAME`" ] || [ $IGNORE_COLLISION -eq 1 ]; then
+        if [ -n "`grep \"$REPLACE_STR\" $FILENAME`" ]; then
+            echo "fail (ignored) -- string collision ==> \"$REPLACE_STR\" already exists"
+        fi
+        TEMP_FILE=`mktemp`
+        trap "rm $TEMP_FILE" EXIT
+        cat $FILENAME | sed "s#$SEARCH_STR#$REPLACE_STR#g" > $TEMP_FILE
+        cp $TEMP_FILE $FILENAME # TEMP_FILE already trapped on exit
+    else
+        echo "fail! -- string collision ==> \"$REPLACE_STR\" already exists"
+    fi
+fi
+
+if [ -e "$FILENAME" ]; then
+    NEW_FILENAME="`dirname $FILENAME`/`basename $FILENAME | sed \"s#$SEARCH_STR#$REPLACE_STR#g\"`"
+    if [ "$NEW_FILENAME" != "$FILENAME" ]; then
+        if [ ! -e "$NEW_FILENAME" ] || [ $IGNORE_COLLISION -eq 1 ]; then
+            if [ -e "$NEW_FILENAME" ]; then
+                echo "fail! (ignored) -- filename collision ==> file $NEW_FILENAME already exists"
+            fi
+            mv $FILENAME $NEW_FILENAME
+        else
+            echo "fail! -- filename collision ==> file \"$NEW_FILENAME\" already exists"
+        fi
+    fi
+fi
+
+echo "done! ==> $@"

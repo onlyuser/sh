@@ -7,17 +7,17 @@ About:
     sh is a collection of bash scripts used to maintain XLang.
     Currently, it includes the following:
 
-        xgrep   -- a grep wrapper that screens filenames before actual grepping
+        xgrep   -- a grep wrapper that screens filenames before grepping content
         xrefact -- a script for refactoring code
         xform   -- a script for applying my coding conventions
         diff.py -- a meld wrapper for better git diff experience
 
 Requirements:
 
-    Add these lines to your .bashrc to gain PATH access (to my scripts)
+    Add these lines to your .bashrc to gain PATH access (to my scripts):
 
-    export PATH=sh:$PATH
-    export PATH=sh/xargs:$PATH
+        export PATH=sh:$PATH
+        export PATH=sh/xargs:$PATH
 
     Add these lines to your .bashrc to use diff.py:
 

@@ -1,0 +1,18 @@
+#!/bin/bash
+
+show_help()
+{
+    echo "SYNTAX: `basename $0` <FILENAME>"
+}
+
+if [ $# -ne 1 ]; then
+    echo "fail! -- expect 1 argument! ==> $@"
+    show_help
+    exit 1
+fi
+
+FILENAME=$1
+
+find . -name "*" | grep $FILENAME | grep -v "\.git" | grep -v "\.config" | xargs -I{} bash -c "form {}"
+
+echo "done! ==> $@"

@@ -1,0 +1,129 @@
+#!/bin/bash
+
+show_help()
+{
+    echo "SYNTAX: `basename $0` <FILENAME>"
+}
+
+if [ $# -ne 1 ]; then
+    echo "fail! -- expect 1 argument! ==> $@"
+    show_help
+    exit 1
+fi
+
+FILENAME=$1
+
+if [ ! -f $FILENAME ]; then
+    echo "fail! -- file not found! ==> $FILENAME"
+    exit 1
+fi
+
+# filter filename
+FILENAME_BASE=`basename $FILENAME`
+if [ -n "`echo $FILENAME_BASE | grep \\\.l`" ]; then
+    echo "fail! -- lex file ignored! ==> $FILENAME"
+    exit 1
+fi
+if [ -n "`echo $FILENAME_BASE | grep \\\.sh`" ]; then
+    echo "fail! -- shell file ignored! ==> $FILENAME"
+    exit 1
+fi
+
+# read input + escape backslash
+TEMP=`cat $FILENAME | sed "s#\\\\\#@@#g"`
+
+# unify indent
+if [ $FILENAME_BASE != "Makefile" ]; then
+    TEMP=`echo -e "$TEMP" | sed "s#^[ ]\{36\}#\t\t\t\t\t\t\t\t\t#g"`
+    TEMP=`echo -e "$TEMP" | sed "s#^[ ]\{32\}#\t\t\t\t\t\t\t\t#g"`
+    TEMP=`echo -e "$TEMP" | sed "s#^[ ]\{28\}#\t\t\t\t\t\t\t#g"`
+    TEMP=`echo -e "$TEMP" | sed "s#^[ ]\{24\}#\t\t\t\t\t\t#g"`
+    TEMP=`echo -e "$TEMP" | sed "s#^[ ]\{20\}#\t\t\t\t\t#g"`
+    TEMP=`echo -e "$TEMP" | sed "s#^[ ]\{16\}#\t\t\t\t#g"`
+    TEMP=`echo -e "$TEMP" | sed "s#^[ ]\{12\}#\t\t\t#g"`
+    TEMP=`echo -e "$TEMP" | sed "s#^[ ]\{8\}#\t\t#g"`
+    TEMP=`echo -e "$TEMP" | sed "s#^[ ]\{4\}#\t#g"`
+    TEMP=`echo -e "$TEMP" | sed "s#\t#    #g"` # replace all tabs with spaces
+else
+    TEMP=`echo -e "$TEMP" | sed "s#[ ]\{4\}#\t#g"`
+fi
+
+# trim trailing space
+TEMP=`echo -e "$TEMP" | sed "s/[ ]*$//g"`
+
+# unify empty brace spacing
+TEMP=`echo -e "$TEMP" | sed "s/{ }/{}/g"`
+TEMP=`echo -e "$TEMP" | sed "s/< >/<>/g"`
+TEMP=`echo -e "$TEMP" | sed "s#\[ \]#[]#g"`
+
+# unify branch spacing
+TEMP=`echo -e "$TEMP" | sed "s/if (/if(/g"`
+TEMP=`echo -e "$TEMP" | sed "s/switch (/switch(/g"`
+TEMP=`echo -e "$TEMP" | sed "s/while (/while(/g"`
+TEMP=`echo -e "$TEMP" | sed "s/for (/for(/g"`
+TEMP=`echo -e "$TEMP" | sed "s/template </template</g"`
+
+# unify postfix spacing
+TEMP=`echo -e "$TEMP" | sed "s_#include[ ]\{3\}_#include _g"`
+TEMP=`echo -e "$TEMP" | sed "s_#include[ ]\{2\}_#include _g"`
+TEMP=`echo -e "$TEMP" | sed "s/namespace[ ]\{3\}/namespace /g"`
+TEMP=`echo -e "$TEMP" | sed "s/namespace[ ]\{2\}/namespace /g"`
+
+# STL headers (remove file extension + replace quotes with angle braces)
+TEMP=`echo -e "$TEMP" | sed "s_\<vector\.h\>_vector_g"`
+TEMP=`echo -e "$TEMP" | sed "s_\<list\.h\>_list_g"`
+TEMP=`echo -e "$TEMP" | sed "s_\<map\.h\>_map_g"`
+TEMP=`echo -e "$TEMP" | sed "s_\<set\.h\>_set_g"`
+TEMP=`echo -e "$TEMP" | sed "s_\<stack\.h\>_stack_g"`
+TEMP=`echo -e "$TEMP" | sed "s_\<queue\.h\>_queue_g"`
+#TEMP=`echo -e "$TEMP" | sed "s_\<string\.h\>_string_g"`
+TEMP=`echo -e "$TEMP" | sed "s_#include \"vector\"_#include <vector>_g"`
+TEMP=`echo -e "$TEMP" | sed "s_#include \"list\"_#include <list>_g"`
+TEMP=`echo -e "$TEMP" | sed "s_#include \"map\"_#include <map>_g"`
+TEMP=`echo -e "$TEMP" | sed "s_#include \"set\"_#include <set>_g"`
+TEMP=`echo -e "$TEMP" | sed "s_#include \"stack\"_#include <stack>_g"`
+TEMP=`echo -e "$TEMP" | sed "s_#include \"queue\"_#include <queue>_g"`
+#TEMP=`echo -e "$TEMP" | sed "s_#include \"string\"_#include <string>_g"`
+
+# C++ headers (remove file extension + replace quotes with angle braces)
+TEMP=`echo -e "$TEMP" | sed "s_\<iostream\.h\>_iostream_g"`
+TEMP=`echo -e "$TEMP" | sed "s_\<istream\.h\>_istream_g"`
+TEMP=`echo -e "$TEMP" | sed "s_\<ostream\.h\>_ostream_g"`
+TEMP=`echo -e "$TEMP" | sed "s_\<fstream\.h\>_fstream_g"`
+TEMP=`echo -e "$TEMP" | sed "s_\<sstream\.h\>_sstream_g"`
+TEMP=`echo -e "$TEMP" | sed "s_#include \"iostream\"_#include <iostream>_g"`
+TEMP=`echo -e "$TEMP" | sed "s_#include \"istream\"_#include <istream>_g"`
+TEMP=`echo -e "$TEMP" | sed "s_#include \"ostream\"_#include <ostream>_g"`
+TEMP=`echo -e "$TEMP" | sed "s_#include \"fstream\"_#include <fstream>_g"`
+TEMP=`echo -e "$TEMP" | sed "s_#include \"sstream\"_#include <sstream>_g"`
+
+# C headers (replace quotes with angle braces)
+TEMP=`echo -e "$TEMP" | sed "s_#include \"assert.h\"_#include <assert.h>_g"`
+TEMP=`echo -e "$TEMP" | sed "s_#include \"complex.h\"_#include <complex.h>_g"`
+TEMP=`echo -e "$TEMP" | sed "s_#include \"ctype.h\"_#include <ctype.h>_g"`
+TEMP=`echo -e "$TEMP" | sed "s_#include \"errno.h\"_#include <errno.h>_g"`
+TEMP=`echo -e "$TEMP" | sed "s_#include \"fenv.h\"_#include <fenv.h>_g"`
+TEMP=`echo -e "$TEMP" | sed "s_#include \"float.h\"_#include <float.h>_g"`
+TEMP=`echo -e "$TEMP" | sed "s_#include \"inttypes.h\"_#include <inttypes.h>_g"`
+TEMP=`echo -e "$TEMP" | sed "s_#include \"iso646.h\"_#include <iso646.h>_g"`
+TEMP=`echo -e "$TEMP" | sed "s_#include \"limits.h\"_#include <limits.h>_g"`
+TEMP=`echo -e "$TEMP" | sed "s_#include \"locale.h\"_#include <locale.h>_g"`
+TEMP=`echo -e "$TEMP" | sed "s_#include \"math.h\"_#include <math.h>_g"`
+TEMP=`echo -e "$TEMP" | sed "s_#include \"setjmp.h\"_#include <setjmp.h>_g"`
+TEMP=`echo -e "$TEMP" | sed "s_#include \"signal.h\"_#include <signal.h>_g"`
+TEMP=`echo -e "$TEMP" | sed "s_#include \"stdarg.h\"_#include <stdarg.h>_g"`
+TEMP=`echo -e "$TEMP" | sed "s_#include \"stdbool.h\"_#include <stdbool.h>_g"`
+TEMP=`echo -e "$TEMP" | sed "s_#include \"stddef.h\"_#include <stddef.h>_g"`
+TEMP=`echo -e "$TEMP" | sed "s_#include \"stdint.h\"_#include <stdint.h>_g"`
+TEMP=`echo -e "$TEMP" | sed "s_#include \"stdio.h\"_#include <stdio.h>_g"`
+TEMP=`echo -e "$TEMP" | sed "s_#include \"stdlib.h\"_#include <stdlib.h>_g"`
+TEMP=`echo -e "$TEMP" | sed "s_#include \"string.h\"_#include <string.h>_g"`
+TEMP=`echo -e "$TEMP" | sed "s_#include \"tgmath.h\"_#include <tgmath.h>_g"`
+TEMP=`echo -e "$TEMP" | sed "s_#include \"time.h\"_#include <time.h>_g"`
+TEMP=`echo -e "$TEMP" | sed "s_#include \"wchar.h\"_#include <wchar.h>_g"`
+TEMP=`echo -e "$TEMP" | sed "s_#include \"wctype.h\"_#include <wctype.h> _g"`
+
+# write output + un-escape backslash
+echo -e "$TEMP" | sed "s#@@#\\\#g" > $FILENAME
+
+echo "done! ==> $@"

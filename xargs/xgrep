@@ -1,0 +1,25 @@
+#!/bin/bash
+
+show_help()
+{
+    echo "SYNTAX: `basename $0` <FILENAME> [SEARCH_STR]"
+}
+
+if [ $# -ne 1 -a $# -ne 2 ]; then
+    echo "fail! -- expect 1 or 2 arguments! ==> $@"
+    show_help
+    exit 1
+fi
+
+FILENAME=`echo $1 | sed "s#!-# #g"`
+SEARCH_STR=`echo $2 | sed "s#!-# #g"`
+
+if [ $# -eq 1 ];
+then
+    find . -name "*" | grep --color=auto $FILENAME
+    exit 0
+fi
+
+find . -name "*" | grep $FILENAME | grep -v "\.git" | xargs -I{} bash -c "grep -H --color=auto $SEARCH_STR {}"
+
+echo "done! ==> $@"
