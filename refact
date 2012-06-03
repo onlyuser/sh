@@ -1,8 +1,10 @@
 #!/bin/bash
 
+CMD=`basename $0`
+
 show_help()
 {
-    echo "SYNTAX: `basename $0` <FILENAME> <SEARCH_STR> <REPLACE_STR> [IGNORE_COLLISION={1/0}]"
+    echo "Usage: $CMD <FILENAME> <SEARCH_STR> <REPLACE_STR> [IGNORE_COLLISION={1/0}]"
 }
 
 if [ $# -ne 3 -a $# -ne 4 ]; then
@@ -54,4 +56,4 @@ if [ -e "$FILENAME" ]; then
     fi
 fi
 
-echo "done! ==> $@"
+echo "done! ==> $CMD $@"

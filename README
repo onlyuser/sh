@@ -12,6 +12,37 @@ About:
         xform   -- a script for applying my coding conventions
         diff.py -- a meld wrapper for better git diff experience
 
+Usage:
+
+    xgrep <FILENAME> [SEARCH_STR]
+
+        FILENAME -- regex describing which files to apply action
+        SEARCH_STR -- grepped regex to apply to files matched
+
+    xrefact <FILENAME> <SEARCH_STR> <REPLACE_STR> [IGNORE_COLLISION={1/0}]
+
+        FILENAME -- regex describing which files to apply action
+        SEARCH_STR -- grepped regex to apply to files matched
+        REPLACE_STR -- string to replace SEARCH_STR
+        IGNORE_COLLISION -- 1 for force replace, 0 for skipping collision case
+
+    xform <FILENAME>
+
+        FILENAME -- regex describing which files to apply action
+
+        Changes made to FILENAME:
+
+            unify indent
+            trim trailing space
+            unify empty brace spacing
+            unify control-statement spacing
+            unify postfix spacing *
+            STL headers (remove file extension + replace quotes with angle braces)
+            C++ headers (remove file extension + replace quotes with angle braces)
+            C headers (replace quotes with angle braces)
+
+            * unify spacing after "#include" and "namespace"
+
 Requirements:
 
     Add these lines to your .bashrc to gain PATH access (to my scripts):

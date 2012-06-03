@@ -1,8 +1,10 @@
 #!/bin/bash
 
+CMD=`basename $0`
+
 show_help()
 {
-    echo "SYNTAX: `basename $0` <FILENAME> <SEARCH_STR> <REPLACE_STR> [IGNORE_COLLISION={1/0}]"
+    echo "Usage: $CMD <FILENAME> <SEARCH_STR> <REPLACE_STR> [IGNORE_COLLISION={1/0}]"
 }
 
 if [ $# -ne 3 -a $# -ne 4 ]; then
@@ -18,4 +20,4 @@ IGNORE_COLLISION=$4
 
 find . -name "*" | grep $FILENAME | grep -v "\.git" | xargs -I{} bash -c "refact {} $SEARCH_STR $REPLACE_STR $IGNORE_COLLISION"
 
-echo "done! ==> $@"
+echo "done! ==> $CMD $@"

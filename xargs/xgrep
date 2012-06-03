@@ -1,8 +1,10 @@
 #!/bin/bash
 
+CMD=`basename $0`
+
 show_help()
 {
-    echo "SYNTAX: `basename $0` <FILENAME> [SEARCH_STR]"
+    echo "Usage: $CMD <FILENAME> [SEARCH_STR]"
 }
 
 if [ $# -ne 1 -a $# -ne 2 ]; then
@@ -22,4 +24,4 @@ fi
 
 find . -name "*" | grep $FILENAME | grep -v "\.git" | xargs -I{} bash -c "grep -H --color=auto $SEARCH_STR {}"
 
-echo "done! ==> $@"
+echo "done! ==> $CMD $@"

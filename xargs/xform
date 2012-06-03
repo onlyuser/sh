@@ -1,8 +1,10 @@
 #!/bin/bash
 
+CMD=`basename $0`
+
 show_help()
 {
-    echo "SYNTAX: `basename $0` <FILENAME>"
+    echo "Usage: $CMD <FILENAME>"
 }
 
 if [ $# -ne 1 ]; then
@@ -15,4 +17,4 @@ FILENAME=$1
 
 find . -name "*" | grep $FILENAME | grep -v "\.git" | grep -v "\.config" | xargs -I{} bash -c "form {}"
 
-echo "done! ==> $@"
+echo "done! ==> $CMD $@"

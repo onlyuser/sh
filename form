@@ -1,8 +1,10 @@
 #!/bin/bash
 
+CMD=`basename $0`
+
 show_help()
 {
-    echo "SYNTAX: `basename $0` <FILENAME>"
+    echo "Usage: $CMD <FILENAME>"
 }
 
 if [ $# -ne 1 ]; then
@@ -56,7 +58,7 @@ TEMP=`echo -e "$TEMP" | sed "s/{ }/{}/g"`
 TEMP=`echo -e "$TEMP" | sed "s/< >/<>/g"`
 TEMP=`echo -e "$TEMP" | sed "s#\[ \]#[]#g"`
 
-# unify branch spacing
+# unify control-statement spacing
 TEMP=`echo -e "$TEMP" | sed "s/if (/if(/g"`
 TEMP=`echo -e "$TEMP" | sed "s/switch (/switch(/g"`
 TEMP=`echo -e "$TEMP" | sed "s/while (/while(/g"`
@@ -126,4 +128,4 @@ TEMP=`echo -e "$TEMP" | sed "s_#include \"wctype.h\"_#include <wctype.h> _g"`
 # write output + un-escape backslash
 echo -e "$TEMP" | sed "s#@@#\\\#g" > $FILENAME
 
-echo "done! ==> $@"
+echo "done! ==> $CMD $@"
