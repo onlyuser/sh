@@ -1,9 +1,10 @@
-**sh**
+sh
+--
 
 Copyright (C) 2011-2012 Jerry Chen <mailto:onlyuser@gmail.com>
 
-**About:**
--
+About:
+------
 
 sh is a collection of shell scripts used to maintain XLang.
 
@@ -15,7 +16,8 @@ sh is a collection of shell scripts used to maintain XLang.
     <dd>diff.py -- a meld wrapper for better git diff experience</dd>
 </dl>
 
-**xgrep:**
+xgrep:
+------
 
 <dl>
     <dt>Synopsis:</dt>
@@ -28,7 +30,8 @@ sh is a collection of shell scripts used to maintain XLang.
     <dd>SEARCH_STR -- grepped regex to apply to files matched</dd>
 </dl>
 
-**xrefact:**
+xrefact:
+--------
 
 <dl>
     <dt>Synopsis:</dt>
@@ -46,7 +49,8 @@ sh is a collection of shell scripts used to maintain XLang.
     <dd>IGNORE_COLLISION -- 1 for force replace, 0 for skipping collision case</dd>
 </dl>
 
-**xform:**
+xform:
+------
 
 <dl>
     <dt>Synopsis:</dt>
@@ -69,7 +73,8 @@ sh is a collection of shell scripts used to maintain XLang.
 * C++ headers (remove file extension + replace quotes with angle braces)
 * C headers (replace quotes with angle braces)
 
-**Requirements:**
+Requirements:
+-------------
 
 Add these lines to your .bashrc to gain PATH access (to my scripts):
 
@@ -81,6 +86,7 @@ Add these lines to your .bashrc to use diff.py:
     #git config --global diff.external meld
     git config --global diff.external sh/diff.py
 
-**Keywords:**
+Keywords:
+---------
 
     shell scripting, bash, git, meld
