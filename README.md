@@ -55,18 +55,18 @@ sh is a collection of shell scripts used to maintain XLang.
     <dd>Applies formatting rules to files matched by FILENAME.</dd>
 
     <dd>FILENAME -- regex describing which files to apply action</dd>
-
-    <dt>Format rules:</dt>
-    <dd>unify indent</dd>
-    <dd>trim trailing space</dd>
-    <dd>unify empty brace spacing</dd>
-    <dd>unify control-statement spacing</dd>
-    <dd>unify postfix spacing *</dd>
-    <dd>STL headers (remove file extension + replace quotes with angle braces)</dd>
-    <dd>C++ headers (remove file extension + replace quotes with angle braces)</dd>
-    <dd>C headers (replace quotes with angle braces)</dd>
-    <dd>* unify spacing after "#include" and "namespace"</dd>
 </dl>
+
+**Format rules:**
+
+* unify indent
+* trim trailing space
+* unify empty brace spacing
+* unify control-statement spacing
+* unify spacing after "#include" and "namespace"
+* STL headers (remove file extension + replace quotes with angle braces)
+* C++ headers (remove file extension + replace quotes with angle braces)
+* C headers (replace quotes with angle braces)
 
 **Requirements:**
 
