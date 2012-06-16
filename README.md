@@ -22,13 +22,16 @@ xgrep:
 <dl>
     <dt>Synopsis:</dt>
     <dd>xgrep <FILENAME> [SEARCH_STR]</dd>
+
     <dt>Description:</dt>
     <dd>Searches for SEARCH_STR in files matched by FILENAME.</dd>
     <dd>If SEARCH_STR not given, simply lists files matched by FILENAME.</dd>
-
-    <dd>FILENAME   -- regex describing which files to apply action</dd>
-    <dd>SEARCH_STR -- grepped regex to apply to files matched</dd>
 </dl>
+
+**Parameters:**
+
+* FILENAME   -- regex describing which files to apply action
+* SEARCH_STR -- grepped regex to apply to files matched
 
 xrefact:
 --------
@@ -42,12 +45,14 @@ xrefact:
     <dd>If IGNORE_COLLISION is 0, skips replaces that produce new occurrences of SEARCH_STR.</dd>
     <dd>Replaces files named SEARCH_STR to REPLACE_STR as well.</dd>
     <dd>IGNORE_COLLISION also applies to file renaming, with analogous functionality.</dd>
-
-    <dd>FILENAME         -- regex describing which files to apply action</dd>
-    <dd>SEARCH_STR       -- grepped regex to apply to files matched</dd>
-    <dd>REPLACE_STR      -- string to replace SEARCH_STR</dd>
-    <dd>IGNORE_COLLISION -- 1 for force replace, 0 for skipping collision case</dd>
 </dl>
+
+**Parameters:**
+
+* FILENAME         -- regex describing which files to apply action
+* SEARCH_STR       -- grepped regex to apply to files matched
+* REPLACE_STR      -- string to replace SEARCH_STR
+* IGNORE_COLLISION -- 1 for force replace, 0 for skipping collision case
 
 xform:
 ------
@@ -58,9 +63,11 @@ xform:
 
     <dt>Description:</dt>
     <dd>Applies formatting rules to files matched by FILENAME.</dd>
-
-    <dd>FILENAME -- regex describing which files to apply action</dd>
 </dl>
+
+**Parameters:**
+
+* FILENAME -- regex describing which files to apply action
 
 **Format rules:**
 
