@@ -93,6 +93,6 @@ Add these lines to your .bashrc to use diff.py:
     git config --global diff.external sh/diff.py
 
 Keywords:
----------
+=========
 
     shell scripting, bash, git, meld
