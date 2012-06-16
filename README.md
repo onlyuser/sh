@@ -8,13 +8,12 @@ About:
 
 sh is a collection of shell scripts used to maintain XLang.
 
-<dl>
-    <dt>Currently, it includes the following:</dt>
-    <dd>xgrep   -- a grep wrapper that screens filenames before grepping</dd>
-    <dd>xrefact -- a script for refactoring code</dd>
-    <dd>xform   -- a script for applying my coding conventions</dd>
-    <dd>diff.py -- a meld wrapper for better git diff experience</dd>
-</dl>
+**Currently, it includes the following:**
+
+* xgrep   -- a grep wrapper that screens filenames before grepping
+* xrefact -- a script for refactoring code
+* xform   -- a script for applying my coding conventions
+* diff.py -- a meld wrapper for better git diff experience
 
 xgrep:
 ------
