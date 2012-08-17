@@ -4,13 +4,17 @@ CMD=`basename $0`
 
 show_help()
 {
-    echo "Usage: $CMD <FILENAME> <SEARCH_STR> <REPLACE_STR> [IGNORE_COLLISION={1/0}]"
+    echo "Usage: $CMD <FILENAME> <SEARCH_STR> <REPLACE_STR> [IGNORE_COLLISION={1*/0}]"
 }
 
 if [ $# -ne 3 -a $# -ne 4 ]; then
     echo "fail! -- expect 3 or 4 arguments! ==> $@"
     show_help
     exit 1
+fi
+
+if [ -z "$IGNORE_COLLISION" ]; then
+    IGNORE_COLLISION=0
 fi
 
 FILENAME=$1

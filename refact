@@ -4,7 +4,7 @@ CMD=`basename $0`
 
 show_help()
 {
-    echo "Usage: $CMD <FILENAME> <SEARCH_STR> <REPLACE_STR> [IGNORE_COLLISION={1/0}]"
+    echo "Usage: $CMD <FILENAME> <SEARCH_STR> <REPLACE_STR> [IGNORE_COLLISION={1*/0}]"
 }
 
 if [ $# -ne 3 -a $# -ne 4 ]; then
@@ -26,6 +26,10 @@ fi
 if [ "$SEARCH_STR" == "$REPLACE_STR" ]; then
     echo "fail! -- no change in order"
     exit 1
+fi
+
+if [ -z "$IGNORE_COLLISION" ]; then
+    IGNORE_COLLISION=0
 fi
 
 if [ -n "`grep \"$SEARCH_STR\" $FILENAME`" ]; then
