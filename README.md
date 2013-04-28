@@ -1,7 +1,7 @@
 sh
 ==
 
-Copyright (C) 2011-2012 Jerry Chen <mailto:onlyuser@gmail.com>
+Copyright (C) 2011-2013 Jerry Chen <mailto:onlyuser@gmail.com>
 
 About:
 ------
