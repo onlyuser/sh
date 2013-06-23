@@ -47,7 +47,7 @@ if [ $FILENAME_BASE != "Makefile" ]; then
     TEMP=`echo -e "$TEMP" | sed "s#^[ ]\{4\}#\t#g"`
     TEMP=`echo -e "$TEMP" | sed "s#\t#    #g"` # replace all tabs with spaces
 else
-    TEMP=`echo -e "$TEMP" | sed "s#[ ]\{4\}#\t#g"`
+    TEMP=`echo -e "$TEMP" | sed "s#^[ ]\{4\}#\t#g"`
 fi
 
 # trim trailing space
