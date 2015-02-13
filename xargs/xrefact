@@ -13,14 +13,14 @@ if [ $# -ne 3 -a $# -ne 4 ]; then
     exit 1
 fi
 
-if [ -z "$IGNORE_COLLISION" ]; then
-    IGNORE_COLLISION=0
-fi
-
 FILENAME=$1
 SEARCH_STR=$2
 REPLACE_STR=$3
 IGNORE_COLLISION=$4
+
+if [ -z "$IGNORE_COLLISION" ]; then
+    IGNORE_COLLISION=0
+fi
 
 find . -name "*" | grep $FILENAME | grep -v "\.git" | xargs -I{} bash -c "refact {} $SEARCH_STR $REPLACE_STR $IGNORE_COLLISION"
 
