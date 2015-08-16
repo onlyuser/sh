@@ -20,7 +20,7 @@ xgrep:
 
 <dl>
     <dt>Synopsis:</dt>
-    <dd>xgrep <FILENAME> [SEARCH_STR]</dd>
+    <dd>xgrep &lt;FILENAME&gt; [SEARCH_STR]</dd>
 
     <dt>Description:</dt>
     <dd>Searches for SEARCH_STR in files matched by FILENAME.</dd>
@@ -37,7 +37,7 @@ xrefact:
 
 <dl>
     <dt>Synopsis:</dt>
-    <dd>xrefact <FILENAME> <SEARCH_STR> <REPLACE_STR> [IGNORE_COLLISION={1/0}]</dd>
+    <dd>xrefact &lt;FILENAME&gt; <SEARCH_STR> <REPLACE_STR> [IGNORE_COLLISION={1/0}]</dd>
 
     <dt>Description:</dt>
     <dd>Replaces SEARCH_STR with REPLACE_STR for files matched by FILENAME.</dd>
@@ -58,7 +58,7 @@ xform:
 
 <dl>
     <dt>Synopsis:</dt>
-    <dd>xform <FILENAME></dd>
+    <dd>xform &lt;FILENAME&gt;</dd>
 
     <dt>Description:</dt>
     <dd>Applies formatting rules to files matched by FILENAME.</dd>
