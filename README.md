@@ -37,7 +37,7 @@ xrefact:
 
 <dl>
     <dt>Synopsis:</dt>
-    <dd>xrefact &lt;FILENAME&gt; <SEARCH_STR> <REPLACE_STR> [IGNORE_COLLISION={1/0}]</dd>
+    <dd>xrefact &lt;FILENAME&gt; &lt;SEARCH_STR&gt; &lt;REPLACE_STR&gt; [IGNORE_COLLISION={1/0}]</dd>
 
     <dt>Description:</dt>
     <dd>Replaces SEARCH_STR with REPLACE_STR for files matched by FILENAME.</dd>
