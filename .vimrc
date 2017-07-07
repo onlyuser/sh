@@ -1,0 +1,10 @@
+colors koehler
+set number
+set nowrap
+set expandtab
+set tabstop=4
+set shiftwidth=4
+set hlsearch
+set guioptions+=r
+set guioptions+=b
+"set guioptions-=T
