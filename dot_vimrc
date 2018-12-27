@@ -1,0 +1,51 @@
+"tab indent
+set expandtab
+set tabstop=4
+set shiftwidth=4
+set nowrap
+
+"key bindings
+set bs=2
+set mousemodel=extend
+"map <2-LeftMouse> :let @/ = expand("<cword>")<CR>:set hlsearch<CR>
+"map <2-LeftMouse> *
+
+"line numbering
+set nu
+set ruler
+
+"gvim gui
+"set guioptions-=m
+set guioptions-=T
+set guioptions+=b
+
+"colors & font
+if has('gui_running')
+    colorscheme koehler
+else
+    colorscheme torte
+endif
+set guifont=Bitstream\ Vera\ Sans\ Mono\ 10
+
+"syntax highlighting
+set hls
+syntax on
+if !has('gui_running')
+    hi LineNr NONE "the highlight command must go after the syntax on command
+endif
+
+set tags=tags
+
+nmap <C-LeftMouse> :vsp <CR> :exec "tjump ". expand("<cword>")<CR>
+"nmap <C-LeftMouse> :exec "stjump ". expand("<cword>")<CR>
+nmap <C-Left>      :exec "tprevious"<CR>
+nmap <C-Right>     :exec "tnext"<CR>
+nmap <C-Up>        :exec "tfirst"<CR>
+nmap <C-Down>      :exec "tlast"<CR>
+nmap <tab>         :exec "tags"<CR>
+
+"source cscope_maps.vim
+set splitright
+nmap <C-RightMouse> :vert scs find s <C-R>=expand("<cword>")<CR><CR>
+
+"inoremap <tab> <c-r>="\<lt>c-p>"<cr>
